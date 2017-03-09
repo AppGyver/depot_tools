@@ -103,6 +103,7 @@ from third_party.repo.progress import Progress
 import subcommand
 import subprocess2
 import setup_color
+import shutil
 
 CHROMIUM_SRC_URL = 'https://chromium.googlesource.com/chromium/src.git'
 
@@ -1423,7 +1424,9 @@ it or fix the checkout.
                 # Remove any eventual stale backup dir for the same project.
                 if os.path.exists(save_dir):
                   gclient_utils.rmtree(save_dir)
-                os.rename(os.path.join(e_dir, '.git'), save_dir)
+                # os.rename(os.path.join(e_dir, '.git'), save_dir)
+                shutil.rmtree(os.path.join(e_dir, '.git'), ignore_errors=True)
+
                 # When switching between the two states (entry/ is a subproject
                 # -> entry/ is part of the outer project), it is very likely
                 # that some files are changed in the checkout, unless we are
